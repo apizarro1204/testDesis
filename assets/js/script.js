@@ -1,6 +1,4 @@
-// Espera a que el DOM esté cargado
 $(document).ready(function () {
-   // Asigna la función sendForm al evento click del botón de votar
    $("#submitButton").on("click", function () {
        if (validateForm()) {
            sendForm();
@@ -8,7 +6,6 @@ $(document).ready(function () {
    });
 });
 
-// Función que se ejecuta al enviar el formulario
 function sendForm() {
    var formData = $("#votingForm").serialize();
 
@@ -16,12 +13,10 @@ function sendForm() {
       type: "POST",
       url: "controllers/submit.php",
       data: formData,
-      dataType: 'text', // Cambiado a esperar una respuesta de tipo texto
+      dataType: 'text', 
       success: function (response) {
-         // Imprimir la respuesta en la consola para verificar
          console.log("Respuesta del servidor:", response);
 
-         // Puedes eliminar esta parte si no necesitas procesar la respuesta de alguna manera
          try {
             var jsonResponse = JSON.parse(response);
             if (jsonResponse.error) {
@@ -42,7 +37,6 @@ function sendForm() {
 
 function validateForm() {
  
-   //Lista de valores en el formulario
    let alias = $("#alias").val();
    let rut = $("#rut").val();
    let region = $("#region").val();
@@ -50,7 +44,6 @@ function validateForm() {
    let candidato = $("#candidato").val();
    let checkboxSelected = $("input[name='referencia[]']:checked");
 
-   // Validar Checkbox
    if(checkboxSelected.length < 2) {
       alert("Selecciona al menos dos opciones en 'Como se enteró de nosotros'");
       return false;

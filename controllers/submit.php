@@ -1,7 +1,5 @@
 <?php
-// Verifica si se ha enviado el formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recupera los datos del formulario
     $nombreApellido = test_input($_POST["nombreApellido"]);
     $alias = test_input($_POST["alias"]);
     $email = test_input($_POST["email"]);
@@ -14,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $referencia = isset($_POST["referencia"]) ? $_POST["referencia"] : array();
 
     try {
-        // Conexión a la base de datos MySQL (reemplaza con tus propias credenciales)
+        // Conexión a la base de datos MySQL
         $servername = "localhost";
         $username = "root";
         $password = "";
@@ -30,12 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
 
         if ($stmt->rowCount() > 0) {
-            // El RUT ya existe, maneja la situación según tus necesidades
             echo json_encode(array('error' => 'El RUT ya ha sido registrado'));
         } else {
-            // El RUT no existe, procede con la inserción en la base de datos
 
-            // Inserción en la base de datos
             $insertQuery = "INSERT INTO votos (nombre_apellido, alias, email, rut, region, comuna, candidato, referencia) 
                             VALUES (:nombreApellido, :alias, :email, :rut, :region, :comuna, :candidato, :referencia)";
 
@@ -50,7 +45,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bindParam(":referencia", implode(", ", $referencia));
 
             if ($stmt->execute()) {
-                // Ejemplo de datos para devolver como JSON en caso de éxito
                 $responseData = array(
                     'nombreApellido' => $nombreApellido,
                     'alias' => $alias,
@@ -82,7 +76,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit();
 }
 
-// Función para validar y limpiar los datos del formulario
 function test_input($data)
 {
     $data = trim($data);
