@@ -12,24 +12,33 @@ $(document).ready(function () {
 function sendForm() {
    var formData = $("#votingForm").serialize();
 
-   console.log("formData: ", formData);
-
-
    $.ajax({
       type: "POST",
       url: "controllers/submit.php",
       data: formData,
-      dataType: 'json', // Espera una respuesta JSON
+      dataType: 'text', // Cambiado a esperar una respuesta de tipo texto
       success: function (response) {
-         // Mostrar las respuestas en la página
-         showResponses(response);
+         // Imprimir la respuesta en la consola para verificar
+         console.log("Respuesta del servidor:", response);
+
+         // Puedes eliminar esta parte si no necesitas procesar la respuesta de alguna manera
+         try {
+            var jsonResponse = JSON.parse(response);
+            if (jsonResponse.error) {
+               console.error("Error en el servidor:", jsonResponse.error);
+            } else {
+               console.log("Los datos se han ingresado correctamente.");
+            }
+         } catch (e) {
+            console.error("Error al procesar la respuesta JSON:", e);
+         }
       },
       error: function (xhr, status, error) {
          console.log("Error al enviar el formulario:", error);
-         alert("Error al enviar el formulario. Consulta la consola para más detalles.");
-     }
-        });
+      }
+   });
 }
+
 
 function validateForm() {
  
@@ -62,32 +71,6 @@ function validateForm() {
 
    return true;
 }
-
-// Función para mostrar las respuestas en la página
-// Función para mostrar las respuestas en la página
-function showResponses(response) {
-   console.log("Respuesta completa:", response); // Agregado para imprimir la respuesta completa
-
-   let html = "<h2>Respuestas del formulario:</h2>";
-   html += "<p><strong>Nombre y Apellido:</strong> " + response.nombreApellido + "</p>";
-   html += "<p><strong>Alias:</strong> " + response.alias + "</p>";
-   html += "<p><strong>Email:</strong> " + response.email + "</p>";
-   html += "<p><strong>RUT:</strong> " + response.rut + "</p>";
-   html += "<p><strong>Región:</strong> " + response.region + "</p>";
-   html += "<p><strong>Comuna:</strong> " + response.comuna + "</p>";
-   html += "<p><strong>Candidato:</strong> " + response.candidato + "</p>";
-
-   // Verificar si 'referencia' está definido antes de intentar unirlo
-   if (response.referencia !== undefined) {
-      html += "<p><strong>Cómo se enteró de nosotros:</strong> " + response.referencia.join(", ") + "</p>";
-   } else {
-      html += "<p><strong>Cómo se enteró de nosotros:</strong> No especificado </p>";
-   }
-
-   // Insertar el HTML en el elemento con id "respuestas"
-   $("#responses").html(html);
-}
-
 
 // Función para validar Alias
 function containsLettersAndNumbers(str) {

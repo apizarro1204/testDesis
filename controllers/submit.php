@@ -13,31 +13,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verifica las opciones seleccionadas en "Cómo se enteró de nosotros"
     $referencia = isset($_POST["referencia"]) ? $_POST["referencia"] : array();
 
-    
-
-
     try {
-        // Conexión a la base de datos (reemplaza con tus propias credenciales)
+        // Conexión a la base de datos MySQL (reemplaza con tus propias credenciales)
         $servername = "localhost";
         $username = "root";
         $password = "";
         $dbname = "votos_db";
 
-        $conn = new mysqli($servername, $username, $password, $dbname);
-
-        // Verificar la conexión
-        if ($conn->connect_error) {
-            throw new Exception("Conexión fallida: " . $conn->connect_error);
-        }
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Verificar si ya existe un RUT igual en la base de datos
-        $checkDuplicateRut = "SELECT id FROM votos WHERE rut = ?";
+        $checkDuplicateRut = "SELECT id FROM votos WHERE rut = :rut";
         $stmt = $conn->prepare($checkDuplicateRut);
-        $stmt->bind_param("s", $rut);
+        $stmt->bindParam(":rut", $rut);
         $stmt->execute();
-        $stmt->store_result();
 
-        if ($stmt->num_rows > 0) {
+        if ($stmt->rowCount() > 0) {
             // El RUT ya existe, maneja la situación según tus necesidades
             echo json_encode(array('error' => 'El RUT ya ha sido registrado'));
         } else {
@@ -45,10 +37,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Inserción en la base de datos
             $insertQuery = "INSERT INTO votos (nombre_apellido, alias, email, rut, region, comuna, candidato, referencia) 
-                            VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                            VALUES (:nombreApellido, :alias, :email, :rut, :region, :comuna, :candidato, :referencia)";
 
             $stmt = $conn->prepare($insertQuery);
-            $stmt->bind_param("ssssssss", $nombreApellido, $alias, $email, $rut, $region, $comuna, $candidato, $referencia);
+            $stmt->bindParam(":nombreApellido", $nombreApellido);
+            $stmt->bindParam(":alias", $alias);
+            $stmt->bindParam(":email", $email);
+            $stmt->bindParam(":rut", $rut);
+            $stmt->bindParam(":region", $region);
+            $stmt->bindParam(":comuna", $comuna);
+            $stmt->bindParam(":candidato", $candidato);
+            $stmt->bindParam(":referencia", implode(", ", $referencia));
 
             if ($stmt->execute()) {
                 // Ejemplo de datos para devolver como JSON en caso de éxito
@@ -60,9 +59,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     'region' => $region,
                     'comuna' => $comuna,
                     'candidato' => $candidato,
-                    'referencia' => $referencia  // Cambio aquí, usando implode
+                    'referencia' => $referencia
                 );
-                echo json_encode($responseData);
+
+                //echo json_encode($responseData);
             } else {
                 // Error al insertar en la base de datos
                 echo json_encode(array('error' => 'Error al registrar en la base de datos'));
@@ -70,10 +70,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Cerrar la conexión
-        $stmt->close();
-        $conn->close();
-    } catch (Exception $e) {
-        echo json_encode(array('error' => 'Error en el servidor: ' . $e->getMessage()));
+        $stmt = null;
+        $conn = null;
+    } catch (PDOException $e) {
+        // Loguear el error en el servidor
+        error_log('Error en el servidor: ' . $e->getMessage());
+        echo json_encode(array('error' => 'Error en el servidor. Consulta los registros para más detalles.'));
     }
 } else {
     header("Location: index.php");
@@ -88,3 +90,4 @@ function test_input($data)
     $data = htmlspecialchars($data);
     return $data;
 }
+?>
