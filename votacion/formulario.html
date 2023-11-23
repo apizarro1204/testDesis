@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="assets/js/script.js"></script>
-    
+
 </head>
 
 
@@ -42,35 +42,23 @@
 
             <!-- Campo Región -->
             <div class="form-group">
-                <label for="region">Región:</label>
-                <select id="region" name="region" required>
-                    <option value="">Selecciona una región</option>
-                    <option value="candidato1">Candidato 1</option>
-                    <option value="candidato2">Candidato 2</option>
-                    <!-- Opciones de región -->
+                <label for="regiones">Región:</label>
+                <select id="regiones" name="regiones" onchange="loadComunas()">
                 </select>
+
             </div>
 
             <!-- Campo Comuna -->
             <div class="form-group">
-                <label for="comuna">Comuna:</label>
-                <select id="comuna" name="comuna" required>
-                    <option value="">Selecciona una comuna</option>
-                    <option value="comuna1">Comuna 1</option>
-                    <option value="comuna2">Comuna 2</option>
-                    <!-- Opciones de comuna -->
+                <label for="comunas">Comuna:</label>
+                <select id="comunas" name="comunas">
                 </select>
             </div>
 
             <!-- Campo Candidato -->
             <div class="form-group">
-                <label for="candidato">Candidato:</label>
-                <select id="candidato" name="candidato" required>
-                    <option value="">Selecciona un candidato</option>
-                    <option value="region1">Region 1</option>
-                    <option value="region2">Region 2</option>
-                    <!-- Opciones de candidato -->
-                </select>
+                <label for="candidatos">Candidatos:</label>
+                <select id="candidatos" name="candidatos"></select>
             </div>
 
             <div>

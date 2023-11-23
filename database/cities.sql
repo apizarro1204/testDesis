@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-11-2023 a las 22:15:30
+-- Tiempo de generación: 23-11-2023 a las 22:00:55
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.1.17
 
@@ -20,57 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `votos_db`
 --
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `candidates`
---
-
-CREATE TABLE `candidates` (
-  `id_candidate` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `region_id` int(10) UNSIGNED NOT NULL,
-  `party` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `candidates`
---
-
-INSERT INTO `candidates` (`id_candidate`, `name`, `region_id`, `party`) VALUES
-(1, 'Candidato 1', 1, 'Partido A'),
-(2, 'Candidato 2', 1, 'Partido B'),
-(3, 'Candidato 3', 2, 'Partido C'),
-(4, 'Candidato 4', 2, 'Partido A'),
-(5, 'Candidato 5', 3, 'Partido B'),
-(6, 'Candidato 6', 3, 'Partido C'),
-(7, 'Candidato 7', 4, 'Partido A'),
-(8, 'Candidato 8', 4, 'Partido B'),
-(9, 'Candidato 9', 5, 'Partido C'),
-(10, 'Candidato 10', 5, 'Partido A'),
-(11, 'Candidato 11', 6, 'Partido B'),
-(12, 'Candidato 12', 6, 'Partido C'),
-(13, 'Candidato 13', 7, 'Partido A'),
-(14, 'Candidato 14', 7, 'Partido B'),
-(15, 'Candidato 15', 8, 'Partido C'),
-(16, 'Candidato 16', 8, 'Partido A'),
-(17, 'Candidato 17', 9, 'Partido B'),
-(18, 'Candidato 18', 9, 'Partido C'),
-(19, 'Candidato 19', 10, 'Partido A'),
-(20, 'Candidato 20', 10, 'Partido B'),
-(21, 'Candidato 21', 11, 'Partido C'),
-(22, 'Candidato 22', 11, 'Partido A'),
-(23, 'Candidato 23', 12, 'Partido B'),
-(24, 'Candidato 24', 12, 'Partido C'),
-(25, 'Candidato 25', 13, 'Partido A'),
-(26, 'Candidato 26', 13, 'Partido B'),
-(27, 'Candidato 27', 14, 'Partido C'),
-(28, 'Candidato 28', 14, 'Partido A'),
-(29, 'Candidato 29', 15, 'Partido B'),
-(30, 'Candidato 30', 15, 'Partido C'),
-(31, 'Candidato 31', 16, 'Partido A'),
-(32, 'Candidato 32', 16, 'Partido B');
 
 -- --------------------------------------------------------
 
@@ -437,95 +386,9 @@ INSERT INTO `cities` (`id_city`, `id_region`, `id_country`, `name`) VALUES
 (345, 7, 1, 'Padre Hurtado'),
 (346, 7, 1, 'Peñaflor');
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `countries`
---
-
-CREATE TABLE `countries` (
-  `id_country` int(10) UNSIGNED NOT NULL,
-  `name` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `countries`
---
-
-INSERT INTO `countries` (`id_country`, `name`) VALUES
-(1, 'Chile');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `regions`
---
-
-CREATE TABLE `regions` (
-  `id_region` int(10) UNSIGNED NOT NULL,
-  `id_country` int(10) UNSIGNED NOT NULL,
-  `name` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `regions`
---
-
-INSERT INTO `regions` (`id_region`, `id_country`, `name`) VALUES
-(1, 1, 'Región de Arica y Parinacota'),
-(2, 1, 'Región de Tarapacá'),
-(3, 1, 'Región de Antofagasta'),
-(4, 1, 'Región de Atacama'),
-(5, 1, 'Región de Coquimbo'),
-(6, 1, 'Región de Valparaíso'),
-(7, 1, 'Región Metropolitana de Santiago'),
-(8, 1, 'Región del Libertador General Bernardo O\'Higgins'),
-(9, 1, 'Región del Maule'),
-(10, 1, 'Región de Ñuble'),
-(11, 1, 'Región del Biobío'),
-(12, 1, 'Región de La Araucanía'),
-(13, 1, 'Región de Los Ríos'),
-(14, 1, 'Región de Los Lagos'),
-(15, 1, 'Región Aysén del General Carlos Ibáñez del Campo'),
-(16, 1, 'Región de Magallanes y de la Antártica Chilena');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `votos`
---
-
-CREATE TABLE `votos` (
-  `id` int(11) NOT NULL,
-  `nombre_apellido` varchar(255) DEFAULT NULL,
-  `alias` varchar(50) DEFAULT NULL,
-  `rut` varchar(15) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `region` varchar(50) DEFAULT NULL,
-  `comuna` varchar(50) DEFAULT NULL,
-  `candidato` varchar(50) DEFAULT NULL,
-  `referencia` text DEFAULT NULL,
-  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `votos`
---
-
-INSERT INTO `votos` (`id`, `nombre_apellido`, `alias`, `rut`, `email`, `region`, `comuna`, `candidato`, `referencia`, `fecha_creacion`) VALUES
-(6, 'Alexis', 'ale555', '17341157-K', 'apizarro1204@gmail.com', 'candidato1', 'comuna1', 'region1', 'Web, TV, Redes Sociales', '2023-11-23 14:49:10'),
-(7, 'Alexis', 'ale999', '19923461-7', 'apizarro1204@gmail.com', 'candidato1', 'comuna1', 'region1', 'Web, TV, Redes Sociales', '2023-11-23 14:51:09');
-
 --
 -- Índices para tablas volcadas
 --
-
---
--- Indices de la tabla `candidates`
---
-ALTER TABLE `candidates`
-  ADD PRIMARY KEY (`id_candidate`),
-  ADD KEY `idx_region` (`region_id`);
 
 --
 -- Indices de la tabla `cities`
@@ -536,34 +399,8 @@ ALTER TABLE `cities`
   ADD KEY `FK_cities_countries` (`id_country`);
 
 --
--- Indices de la tabla `countries`
---
-ALTER TABLE `countries`
-  ADD PRIMARY KEY (`id_country`);
-
---
--- Indices de la tabla `regions`
---
-ALTER TABLE `regions`
-  ADD PRIMARY KEY (`id_region`),
-  ADD KEY `FK_regions_countries` (`id_country`);
-
---
--- Indices de la tabla `votos`
---
-ALTER TABLE `votos`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `idx_rut` (`rut`);
-
---
 -- AUTO_INCREMENT de las tablas volcadas
 --
-
---
--- AUTO_INCREMENT de la tabla `candidates`
---
-ALTER TABLE `candidates`
-  MODIFY `id_candidate` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `cities`
@@ -572,32 +409,8 @@ ALTER TABLE `cities`
   MODIFY `id_city` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=347;
 
 --
--- AUTO_INCREMENT de la tabla `countries`
---
-ALTER TABLE `countries`
-  MODIFY `id_country` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de la tabla `regions`
---
-ALTER TABLE `regions`
-  MODIFY `id_region` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT de la tabla `votos`
---
-ALTER TABLE `votos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
 -- Restricciones para tablas volcadas
 --
-
---
--- Filtros para la tabla `candidates`
---
-ALTER TABLE `candidates`
-  ADD CONSTRAINT `candidates_ibfk_1` FOREIGN KEY (`region_id`) REFERENCES `regions` (`id_region`);
 
 --
 -- Filtros para la tabla `cities`
@@ -605,12 +418,6 @@ ALTER TABLE `candidates`
 ALTER TABLE `cities`
   ADD CONSTRAINT `FK_cities_countries` FOREIGN KEY (`id_country`) REFERENCES `countries` (`id_country`),
   ADD CONSTRAINT `FK_cities_regions` FOREIGN KEY (`id_region`) REFERENCES `regions` (`id_region`);
-
---
--- Filtros para la tabla `regions`
---
-ALTER TABLE `regions`
-  ADD CONSTRAINT `FK_regions_countries` FOREIGN KEY (`id_country`) REFERENCES `countries` (`id_country`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
