@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $referencia = isset($_POST["referencia"]) ? $_POST["referencia"] : array();
 
     try {
-        // Conexión a la base de datos MySQL (reemplaza con tus propias credenciales)
+        // Conexión a la base de datos MySQL (reemplazar credenciales según corresponda)
         $servername = "localhost";
         $username = "root";
         $password = "";
@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->bindParam(":region", $region);
             $stmt->bindParam(":comuna", $comuna);
             $stmt->bindParam(":candidato", $candidato);
-            $stmt->bindParam(":referencia", implode(", ", $referencia));
+            $stmt->bindParam(":referencia", implode(", ", $referencia)); //Se puede utilizar implode o no, depende de referencia.
 
             if ($stmt->execute()) {
                 // Ejemplo de datos para devolver como JSON en caso de éxito

@@ -24,12 +24,10 @@ function sendForm() {
       type: "POST",
       url: "controllers/submit.php",
       data: formData,
-      dataType: 'text', // Cambiado a esperar una respuesta de tipo texto
+      dataType: 'text', 
       success: function (response) {
          // Imprimir la respuesta en la consola para verificar
          console.log("Respuesta del servidor:", response);
-
-         // Puedes eliminar esta parte si no necesitas procesar la respuesta de alguna manera
          try {
             var jsonResponse = JSON.parse(response);
             if (jsonResponse.error) {

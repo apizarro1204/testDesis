@@ -1,5 +1,5 @@
 <?php
-// Conexión a la base de datos MySQL (reemplaza con tus propias credenciales)
+// Conexión a la base de datos MySQL (reemplazar credenciales según corresponda)
 $servername = "localhost";
 $username = "root";
 $password = "";

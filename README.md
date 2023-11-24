@@ -18,4 +18,9 @@ Proyecto destinado para la postulación a desarrollador en Desis.
 
 3. **Configurar la Conexión a la Base de Datos:**
    ```Recuerde cambiar las credenciales en los controladores. Las credenciales en el archivo son por defecto.
+
+## Créditos
+
+   - La base de datos de regiones y comunas fue gracias al script de fedesar
+   https://gist.github.com/fedesar/89c41d9ef189dd14622e06590d3dd1de
   
